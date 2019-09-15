@@ -15,38 +15,51 @@ public class LogParseApplication {
     private static void detalhesGameERanking() { // Task 1 e 2
         final List<Game> listGames = new ArrayList<Game>();
 
-        final List<String> listaGamesText = Ferramenta.lerArquivo("games.log");
+        try {
+            final List<String> listaGamesText = Ferramenta.lerArquivo("games.log");
 
-        int idGame = 1;
+            int idGame = 1;
 
-        for (final String elementoGame : listaGamesText) {
-            final Game game = Ferramenta.criaGame(elementoGame, idGame);
+            for (final String elementoGame : listaGamesText) {
+                final Game game = Ferramenta.criaGame(elementoGame, idGame);
 
-            listGames.add(game);
+                listGames.add(game);
 
-            Ferramenta.mostrarDetalhesGame(game);
+                Ferramenta.mostrarDetalhesGame(game);
 
-            idGame++;
+                idGame++;
+            }
+            Ferramenta.getRankingGeral(listGames);
+        } catch (final Exception e) {
+            System.out.println("Erro (detalhesGameERanking): " + e.getMessage());
         }
-        Ferramenta.getRankingGeral(listGames);
+
     }
 
     public static Game buscaGamePorId(final long id) { // Task 3
+        if (id <= 0) {
+            return null;
+        }
 
         Game game = null;
 
-        final List<String> listaGamesText = Ferramenta.lerArquivo("games.log");
+        try {
+            final List<String> listaGamesText = Ferramenta.lerArquivo("games.log");
 
-        int idGame = 1;
+            int idGame = 1;
 
-        for (final String elementoGame : listaGamesText) {
-            game = Ferramenta.criaGame(elementoGame, idGame);
+            for (final String elementoGame : listaGamesText) {
+                game = Ferramenta.criaGame(elementoGame, idGame);
 
-            if (idGame == id) {
-                return game;
+                if (idGame == id) {
+                    return game;
+                }
+                idGame++;
             }
-            idGame++;
+        } catch (final Exception e) {
+            System.out.println("Erro (buscaGamePorId): " + e.getMessage());
         }
+
         return game;
     }
 

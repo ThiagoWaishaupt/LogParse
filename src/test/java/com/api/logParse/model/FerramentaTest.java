@@ -1,35 +1,39 @@
 package com.api.logParse.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
+
+import com.api.logParse.LogParseApplication;
 
 public class FerramentaTest {
 
     @Test
-    public void testLerArquivo() {
+    public void testLerArquivoNaoNulo() {
         assertNotNull(Ferramenta.lerArquivo("games.log"));
     }
 
     @Test
-    public void testCriaGame() {
-        fail("Not yet implemented");
+    public void testIniciaGameComZeroKills() {
+        final Game game = new Game();
+        assertEquals(game.getkillsMundo(), 0);
     }
 
     @Test
-    public void testMostrarDetalhesGame() {
-        fail("Not yet implemented");
+    public void testIniciaPlayerComZeroKills() {
+        final Player player = new Player();
+        assertEquals(player.getKill(), 0);
     }
 
     @Test
-    public void testGetRankingGeral() {
-        fail("Not yet implemented");
+    public void testBuscaGamePorId() {
+        assertNotNull(LogParseApplication.buscaGamePorId(1));
     }
 
     @Test
     public void testOrdenaMapPorKill() {
-        fail("Not yet implemented");
+
     }
 
 }
