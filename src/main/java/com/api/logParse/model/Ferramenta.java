@@ -4,7 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -129,6 +133,57 @@ public class Ferramenta {
         System.out.println("Kills: " + game.getDetalheKills());
         System.out.println("\n---------------------\n");
 
+    }
+
+    public static void getRankingGeral(final List<Game> listGames) {
+
+        final Map<String, Integer> map = new HashMap<String, Integer>();
+
+        listGames.forEach(game -> {
+
+            final List<Player> listPlayers = game.getPlayers();
+
+            listPlayers.forEach(player -> {
+
+                if (!map.containsKey(player.getNick())) {
+                    map.put(player.getNick(), player.getKill());
+                } else {
+                    final int killPlayer = map.get(player.getNick());
+                    map.put(player.getNick(), player.getKill() + killPlayer);
+                }
+            });
+        });
+
+        final Map<String, Integer> mapOrdenado = ordenaMapPorKill(map);
+
+        System.out.println("Ranking Geral:");
+        for (final Map.Entry<String, Integer> pair : mapOrdenado.entrySet()) {
+            System.out.println("Player: " + pair.getKey() + " - Kill(s): " + pair.getValue());
+        }
+
+    }
+
+    public static HashMap<String, Integer> ordenaMapPorKill(final Map<String, Integer> map) {
+        {
+            // Crie uma lista a partir dos elementos do HashMap
+            final List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(map.entrySet());
+
+            // Ordenar a lista
+            Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(final Map.Entry<String, Integer> o1, final Map.Entry<String, Integer> o2) {
+                    return o1.getValue().compareTo(o2.getValue());
+                }
+            });
+            Collections.reverse(list);
+
+            // colocar dados da lista ordenados em hashmap
+            final HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+            for (final Map.Entry<String, Integer> aa : list) {
+                temp.put(aa.getKey(), aa.getValue());
+            }
+            return temp;
+        }
     }
 
 }

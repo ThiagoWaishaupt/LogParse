@@ -1,5 +1,6 @@
 package com.api.logParse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,8 @@ public class LogParseApplication {
     public static void main(final String[] args) {
         SpringApplication.run(LogParseApplication.class, args);
 
+        final List<Game> listGames = new ArrayList<Game>();
+
         final List<String> listaGamesText = Ferramenta.lerArquivo("games.log"); // Task 1
 
         int idGame = 1;
@@ -21,10 +24,14 @@ public class LogParseApplication {
         for (final String elementoGame : listaGamesText) {
             final Game game = Ferramenta.criaGame(elementoGame, idGame); // Task 1
 
+            listGames.add(game);
+
             Ferramenta.mostrarDetalhesGame(game); // Task 2
 
             idGame++;
         }
+
+        Ferramenta.getRankingGeral(listGames); // Task 2
 
     }
 
