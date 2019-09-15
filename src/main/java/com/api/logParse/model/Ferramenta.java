@@ -120,4 +120,15 @@ public class Ferramenta {
         }
     }
 
+    public static void mostrarDetalhesGame(final Game game) {
+
+        System.out.println("Informacoes do Game:\n");
+        System.out.println("id: " + game.getId());
+        System.out.println("Total_kills: " + game.getTotalDeKillsNoGame());
+        System.out.println("Players: " + game.getNickJogadores());
+        System.out.println("Kills: " + game.getDetalheKills());
+        System.out.println("\n---------------------\n");
+
+    }
+
 }

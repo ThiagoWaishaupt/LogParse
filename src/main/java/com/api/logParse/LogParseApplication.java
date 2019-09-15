@@ -21,6 +21,8 @@ public class LogParseApplication {
         for (final String elementoGame : listaGamesText) {
             final Game game = Ferramenta.criaGame(elementoGame, idGame); // Task 1
 
+            Ferramenta.mostrarDetalhesGame(game); // Task 2
+
             idGame++;
         }
 
