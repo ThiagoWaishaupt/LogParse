@@ -31,9 +31,4 @@ public class FerramentaTest {
         assertNotNull(LogParseApplication.buscaGamePorId(1));
     }
 
-    @Test
-    public void testOrdenaMapPorKill() {
-
-    }
-
 }

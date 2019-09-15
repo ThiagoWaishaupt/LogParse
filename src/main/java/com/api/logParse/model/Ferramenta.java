@@ -23,7 +23,8 @@ public class Ferramenta {
             final FileReader arq = new FileReader(nomeArquivo);
             final BufferedReader lerArq = new BufferedReader(arq);
 
-            String linha = lerArq.readLine(); // lê a primeira linha
+            // lê a primeira linha
+            String linha = lerArq.readLine();
 
             conteudo = linha;
 
@@ -36,7 +37,8 @@ public class Ferramenta {
                     conteudo = "";
                 }
 
-                linha = lerArq.readLine(); // lê da segunda até a última linha
+                // lê da segunda até a última linha
+                linha = lerArq.readLine();
             }
 
             arq.close();
@@ -50,21 +52,18 @@ public class Ferramenta {
         } else {
             return listGames;
         }
-
     }
 
     public static Game criaGame(final String gameTexto, final int gameId) {
-
         final Game game = new Game();
 
         Map<String, Player> map = new HashMap<String, Player>();
 
         final String[] linhas = gameTexto.split("\\n");
 
+        // Percorre linha por linha buscando Players e Kills
         for (final String linha : linhas) {
-
             map = buscaPlayers(linha, map);
-
             buscaKills(linha, map, game);
         }
 
@@ -83,6 +82,7 @@ public class Ferramenta {
     private static Map<String, Player> buscaPlayers(final String linha, final Map<String, Player> map) {
         final String nickJogador;
 
+        //Busca novos Players
         if (linha.contains("ClientUserinfoChanged")) {
 
             nickJogador = linha.substring(34, linha.indexOf("\\t"));
@@ -106,6 +106,7 @@ public class Ferramenta {
 
             motivo = arraylinha[3];
 
+            // Verifica Player que morreram pelo mundo
             if (motivo.contains("<world>")) {
                 final String nickJogador = motivo.substring(16, motivo.indexOf("by") - 1);
 
@@ -114,6 +115,7 @@ public class Ferramenta {
                 player.morreuProMundo();
                 game.addMortePeloMundo();
 
+                // Verifica Players que morreram por outro Player
             } else if (motivo.contains("killed")) {
                 final String nickJogador = motivo.substring(1, motivo.indexOf("killed") - 1);
 
@@ -139,6 +141,7 @@ public class Ferramenta {
 
         final Map<String, Integer> map = new HashMap<String, Integer>();
 
+        // Percorre Players de cada Game
         listGames.forEach(game -> {
 
             final List<Player> listPlayers = game.getPlayers();
@@ -154,6 +157,7 @@ public class Ferramenta {
             });
         });
 
+        // Ordena Kills em ordem decrescente
         final Map<String, Integer> mapOrdenado = ordenaMapPorKill(map);
 
         System.out.println("Ranking Geral:");

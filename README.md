@@ -7,3 +7,5 @@ Foi feito o tratamento de cada objeto para a listagem de Ranking e informações d
 Testes unitário foram feitos utilizando JUnit4.
 
 Para busca de Game por ID, foi utilizado API/REST feita com Java + SpringBoot.
+
+Busca: http://localhost:8080/api/game/(idGame)
