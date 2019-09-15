@@ -19,7 +19,7 @@ public class Game {
         killsMundo++;
     }
 
-    public int getTotalDeKillsNoGame() {
+    public int totalDeKillsNoGame() {
 
         players.forEach(player -> {
             killsMundo += player.getKill();
@@ -28,7 +28,7 @@ public class Game {
         return killsMundo;
     }
 
-    public List<String> getNickJogadores() {
+    public List<String> nickJogadores() {
 
         final List<String> nicks = new ArrayList<String>();
 
@@ -39,7 +39,7 @@ public class Game {
         return nicks;
     }
 
-    public Map<String, Integer> getDetalheKills() {
+    public Map<String, Integer> detalheKills() {
 
         final Map<String, Integer> map = new HashMap<String, Integer>();
 
