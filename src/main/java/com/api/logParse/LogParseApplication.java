@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.api.logParse.model.Ferramenta;
+import com.api.logParse.model.Game;
 
 @SpringBootApplication
 public class LogParseApplication {
@@ -14,6 +15,14 @@ public class LogParseApplication {
         SpringApplication.run(LogParseApplication.class, args);
 
         final List<String> listaGamesText = Ferramenta.lerArquivo("games.log"); // Task 1
+
+        int idGame = 1;
+
+        for (final String elementoGame : listaGamesText) {
+            final Game game = Ferramenta.criaGame(elementoGame, idGame); // Task 1
+
+            idGame++;
+        }
 
     }
 
